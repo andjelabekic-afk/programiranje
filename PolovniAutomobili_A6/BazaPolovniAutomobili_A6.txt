@@ -1,0 +1,125 @@
+ BAZA procedure
+
+USE [4EIT_А6_PolovniAutomobili]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[IzmeniModel]
+    @ModelNaziv NVARCHAR(50),
+    @ProizvodjacID INT,
+    @ModelID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Model
+    SET Naziv = @ModelNaziv,
+        ProizvodjacID = @ProizvodjacID
+    WHERE ModelID = @ModelID;
+END
+GO
+-----------------------------------------------
+
+USE [4EIT_А6_PolovniAutomobili]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniComboProizvodjac]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ProizvodjacID, Naziv
+    FROM Proizvodjac
+    ORDER BY Naziv;
+END
+GO
+
+-------------------------------------------------
+USE [4EIT_А6_PolovniAutomobili]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniGridChart]
+    @GodisteOD INT,
+    @GodisteDO INT,
+    @Kilometraza INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ISNULL(Proizvodjac.Naziv, 'NoName') AS Proizvodjac,
+           COUNT(*) AS BrVozila
+    FROM Proizvodjac
+         RIGHT JOIN Model ON Proizvodjac.ProizvodjacID = Model.ProizvodjacID
+         RIGHT JOIN Vozilo ON Model.ModelId = Vozilo.ModelID
+    WHERE Vozilo.PredjenoKM <= @Kilometraza
+      AND Vozilo.GodinaProizvodnje BETWEEN @GodisteOD AND @GodisteDO
+    GROUP BY Proizvodjac.Naziv
+    ORDER BY Proizvodjac.Naziv;
+END
+GO
+----------------------------------------------------------------------------
+USE [4EIT_А6_PolovniAutomobili]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniListBoxModeli]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        m.ModelId,
+        m.Naziv AS ModelNaziv,
+        p.ProizvodjacID,
+        p.Naziv AS ProizvodjacNaziv,
+        RIGHT('000' + CAST(m.ModelId AS VARCHAR(3)), 3) + '   ' + m.Naziv + ', ' + p.Naziv AS Prikaz
+    FROM Model m
+    INNER JOIN Proizvodjac p ON m.ProizvodjacID = p.ProizvodjacID
+    ORDER BY m.ModelId;
+END
+GO
+---------------------------------------------------------------------------------------------------------
+USE [4EIT_А6_PolovniAutomobili]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniListBoxUslov]
+    @ModelID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        m.ModelId,
+        m.Naziv AS ModelNaziv,
+        p.ProizvodjacID,
+        p.Naziv AS ProizvodjacNaziv,
+        RIGHT('000' + CAST(m.ModelId AS VARCHAR(3)), 3) + '  ' + m.Naziv + ', ' + p.Naziv AS Prikaz
+    FROM Model m
+    INNER JOIN Proizvodjac p ON m.ProizvodjacID = p.ProizvodjacID
+    WHERE m.ModelId = @ModelID;
+END
+GO
+----------------------------------------------------------------------------------------------------------
