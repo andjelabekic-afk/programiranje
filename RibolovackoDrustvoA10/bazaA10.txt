@@ -1,0 +1,122 @@
+USE [4EIT_A10_RibolovackoDrustvo]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[IzmeniUpdatePecaros]
+    @PecarosID INT,
+    @Ime NVARCHAR(50),
+    @Prezime NVARCHAR(50),
+    @Adresa NVARCHAR(50),
+    @Telefon NVARCHAR(50),
+    @Grad NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Pecaros
+    SET Ime = @Ime,
+        Prezime = @Prezime,
+        Adresa = @Adresa,
+        Telefon = @Telefon,
+        GradID = (SELECT GradID FROM Grad WHERE Grad = @Grad)
+    WHERE PecarosID = @PecarosID;
+END
+GO
+---------------------------------------------------------------------
+USE [4EIT_A10_RibolovackoDrustvo]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniComboGrad]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT RTRIM(Grad) AS Grad
+    FROM Grad
+    ORDER BY Grad;
+END
+GO
+--------------------------------------------------------------------------
+USE [4EIT_A10_RibolovackoDrustvo]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniComboPecaros]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT RTRIM(CAST(PecarosID AS NCHAR)) + ' - ' + Ime + ' ' + Prezime AS Pecaros
+    FROM Pecaros;
+END
+GO
+---------------------------------------------------------------------------------
+USE [4EIT_A10_RibolovackoDrustvo]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniGridiChart]
+    @PecarosID INT,
+    @DatumOD DATE,
+    @DatumDO DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        COUNT(*) AS Broj,
+        Vrsta_Ribe.Naziv
+    FROM Ulov
+    INNER JOIN Vrsta_Ribe 
+        ON Ulov.VrstaID = Vrsta_Ribe.VrstaID
+    INNER JOIN Pecaros 
+        ON Ulov.PecarosID = Pecaros.PecarosID
+    WHERE Ulov.PecarosID = @PecarosID
+      AND Ulov.Datum BETWEEN @DatumOD AND @DatumDO
+    GROUP BY Vrsta_Ribe.Naziv;
+END
+GO
+--------------------------------------------------------
+USE [4EIT_A10_RibolovackoDrustvo]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniListView]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        PecarosID AS Sifra,
+        Ime,
+        Prezime,
+        Adresa,
+        RTRIM(Grad.Grad) AS Grad,
+        Telefon
+    FROM Pecaros
+    INNER JOIN Grad 
+        ON Pecaros.GradID = Grad.GradID;
+END
+GO
+-------------------------------------------------------------
