@@ -1,0 +1,12 @@
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\bin\Debug\Andjela_DVDKolekcijaA13.exe.config
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\bin\Debug\Andjela_DVDKolekcijaA13.exe
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\bin\Debug\Andjela_DVDKolekcijaA13.pdb
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.csproj.AssemblyReference.cache
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.Form1.resources
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.Properties.Resources.resources
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.csproj.GenerateResource.cache
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.csproj.CoreCompileInputs.cache
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.exe
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.pdb
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.Form2.resources
+C:\Users\Anđela\source\repos\Andjela_DVDKolekcijaA13\Andjela_DVDKolekcijaA13\obj\Debug\Andjela_DVDKolekcijaA13.Form3.resources

@@ -1,0 +1,60 @@
+USE [4EIT_A13_DVDKolekcija]
+GO
+/****** Object:  StoredProcedure [dbo].[IzmeniUpdate]    Script Date: 23-Apr-26 8:53:16 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[IzmeniUpdate] @ProducentID AS int
+                               ,@Ime AS NVarChar(50)
+                               ,@Email AS NVarChar(50)
+AS
+UPDATE Producent
+Set Ime = @Ime
+   ,Email = @Email
+WHERE ProducentID = @ProducentID
+---------------------------------------------------------------------------
+USE [4EIT_A13_DVDKolekcija]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridIChart]    Script Date: 23-Apr-26 8:54:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniGridIChart] 
+AS
+SELECT Ime AS Producent
+     , COUNT(Film.FilmID) AS BrojFilmova
+  FROM Producent INNER JOIN Producirao ON Producent.ProducentID = Producirao.ProducentID
+                 INNER JOIN Film ON Producirao.FilmID = Film.FilmID
+GROUP BY Ime
+------------------------------------------------------------------------------------------
+USE [4EIT_A13_DVDKolekcija]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListBox]    Script Date: 23-Apr-26 8:54:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniListBox] 
+AS
+SELECT CAST(ProducentID AS nvarchar) + ' - ' + Ime + ' - ' + Email AS Producent
+  FROM Producent
+-----------------------------------------------------------------------------------------------
+USE [4EIT_A13_DVDKolekcija]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 23-Apr-26 8:54:58 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniListView] 
+AS
+SELECT ProducentID AS Sifra
+      ,Ime AS Naziv
+      ,Email AS E_mail
+  FROM Producent
+---------------------------------------------------------------------------------------------
