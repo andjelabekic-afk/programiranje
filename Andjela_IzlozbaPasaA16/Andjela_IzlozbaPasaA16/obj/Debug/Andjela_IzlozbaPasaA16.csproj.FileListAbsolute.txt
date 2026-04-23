@@ -1,0 +1,10 @@
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\bin\Debug\Andjela_IzlozbaPasaA16.exe.config
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\bin\Debug\Andjela_IzlozbaPasaA16.exe
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\bin\Debug\Andjela_IzlozbaPasaA16.pdb
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.csproj.AssemblyReference.cache
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.Form1.resources
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.Properties.Resources.resources
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.csproj.GenerateResource.cache
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.csproj.CoreCompileInputs.cache
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.exe
+C:\Users\Anđela\source\repos\Andjela_IzlozbaPasaA16\Andjela_IzlozbaPasaA16\obj\Debug\Andjela_IzlozbaPasaA16.pdb

@@ -1,0 +1,109 @@
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[PrijavaPasa]    Script Date: 23-Apr-26 9:29:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PrijavaPasa]
+@IzlozbaID AS NChar(10),
+@KategorijaID AS INT,
+@PasID AS INT
+AS 
+INSERT INTO Rezultat
+(
+IzlozbaID
+,KategorijaID
+,PasID
+)
+VALUES
+(
+@IzlozbaID,
+@KategorijaID,
+@PasID
+)
+--------------------------------------------------------------------------------------------------------
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboIzlozba]    Script Date: 23-Apr-26 9:30:00 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniComboIzlozba]
+AS
+SELECT  Trim(CAST(IzlozbaID AS Char)) + ' - ' + Trim(Mesto) + ' - ' + Format(Datum, 'dd.MM.yyyy') AS Izlozba
+FROM            dbo.Izlozba
+-------------------------------------------------------------------------------------------------------------
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboKategorija]    Script Date: 23-Apr-26 9:30:15 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+
+ALTER PROCEDURE [dbo].[PuniComboKategorija]
+AS
+SELECT RTrim(CAST(KategorijaID AS NChar))  + ' - ' + Rtrim([Naziv]) AS Kategorija
+  FROM Kategorija
+------------------------------------------------------------------------------------------------------------------
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboPas]    Script Date: 23-Apr-26 9:30:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+
+ALTER PROCEDURE [dbo].[PuniComboPas]
+AS
+SELECT RTrim(CAST(PasID AS NChar))  + ' - ' + Rtrim([Ime]) AS Pas
+   FROM [Pas]
+---------------------------------------------------------------------------------------------------------
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridIChart]    Script Date: 23-Apr-26 9:30:52 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniGridIChart] @IzlozbaID AS NChar(10) 
+AS
+SELECT Kategorija.KategorijaID
+      ,Kategorija.Naziv
+      ,COUNT([PasID]) AS BrojPasa
+FROM Rezultat INNER JOIN Kategorija ON Rezultat.KategorijaID = Kategorija.KategorijaID
+WHERE IzlozbaID = @IzlozbaID
+GROUP BY Kategorija.KategorijaID
+      ,Kategorija.Naziv
+ORDER BY Kategorija.KategorijaID
+      ,Kategorija.Naziv
+----------------------------------------------------------------------------------------------------------
+USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[UkupanBrKojiSeTakmicio]    Script Date: 23-Apr-26 9:31:06 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UkupanBrKojiSeTakmicio] @IzlozbaID AS NChar(10) 
+AS
+SELECT COUNT([PasID]) AS BrojPasa
+FROM Rezultat INNER JOIN Kategorija ON Rezultat.KategorijaID = Kategorija.KategorijaID
+WHERE IzlozbaID = @IzlozbaID
+---------------------------------------------------------------------------------------------------------------USE [4EIT_A16_IzlozbaPasa]
+GO
+/****** Object:  StoredProcedure [dbo].[UkupanBrPrijavljenih]    Script Date: 23-Apr-26 9:31:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UkupanBrPrijavljenih] @IzlozbaID AS NChar(10) 
+AS
+SELECT COUNT([PasID]) AS BrojPasa
+FROM Rezultat INNER JOIN Kategorija ON Rezultat.KategorijaID = Kategorija.KategorijaID
+WHERE IzlozbaID = @IzlozbaID
