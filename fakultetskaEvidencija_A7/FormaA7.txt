@@ -1,0 +1,385 @@
+Form1 ima 
+toolstrip 1
+4 velika buttona sa slikama
+-----------------------------
+form 2
+
+4 textbox
+richbox
+datagridview
+2 buttona
+------------------------------
+form 3
+
+checkedlistbox1
+datagridview1,
+chart (series charttype bar ali horizontalan),
+2 buttona
+----------------------------------------------
+
+KOD
+FORM !
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Andjela_FakultetskaEvidencijaA7
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
+        }
+
+    
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 f = new Form2();
+            f.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            f.Show();
+            this.Hide();
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form4 f = new Form4();
+            f.Show();
+            this.Hide();
+        }
+    }
+
+    }
+
+-------------------------------------------------------------------
+FORM 2
+
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace Andjela_FakultetskaEvidencijaA7
+{
+    public partial class Form2 : Form
+    {
+     
+        SqlConnection Kon = new SqlConnection(@"Data Source=DESKTOP-2UBJC86\SQLEXPRESS;Initial Catalog=4EIT_A7_FakultetskaEvidencija;Integrated Security=True");
+
+        public Form2()
+        {
+            InitializeComponent();
+
+            
+            this.Load += Form2_Load;
+
+           
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+
+           
+
+          
+            dataGridView1.CellClick += dataGridView1_CellClick;
+
+           
+            button1.Click += button1_Click; 
+            button2.Click += button2_Click; 
+        }
+
+        
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            PuniGrid();
+        }
+
+      
+        private void PuniGrid()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("PuniGrid", Kon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DataTable dt = new DataTable();
+
+                    Kon.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        dt.Load(reader);
+                    }
+                    dataGridView1.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška pri učitavanju podataka: " + ex.Message);
+            }
+            finally
+            {
+                if (Kon.State == ConnectionState.Open)
+                    Kon.Close();
+            }
+        }
+
+       
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                textBox1.Text = row.Cells[0].Value?.ToString() ?? ""; // PredmetID
+                textBox2.Text = row.Cells[1].Value?.ToString() ?? ""; // SifraPredmeta
+                textBox3.Text = row.Cells[2].Value?.ToString() ?? ""; // Predmet
+                textBox4.Text = row.Cells[3].Value?.ToString() ?? ""; // Semestar
+                richTextBox1.Text = row.Cells[4].Value?.ToString() ?? ""; // Opis
+            }
+        }
+
+       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                MessageBox.Show("Niste selektovali predmet za brisanje!");
+                return;
+            }
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("BrisiPredmet", Kon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PredmetID", Convert.ToInt32(textBox1.Text));
+
+                    Kon.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    Kon.Close();
+
+                    if (rows > 0)
+                    {
+                        MessageBox.Show("Predmet uspešno obrisan!");
+                        PuniGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Brisanje nije uspelo.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška: " + ex.Message);
+            }
+            finally
+            {
+                if (Kon.State == ConnectionState.Open)
+                    Kon.Close();
+            }
+        }
+
+
+        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form1 f = new Form1();
+            f.Show();
+            this.Close();
+        }
+    }
+}
+----------------------------------------------------------------------------
+FORM 3
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+
+namespace Andjela_FakultetskaEvidencijaA7
+{
+    public partial class Form3 : Form
+    {
+        SqlConnection Kon = new SqlConnection(@"Data Source=DESKTOP-2UBJC86\SQLEXPRESS;Initial Catalog=4EIT_A7_FakultetskaEvidencija;Integrated Security=True");
+
+        public Form3()
+        {
+            InitializeComponent();
+
+            this.Load += Form3_Load;
+
+            button1.Click += button1_Click; // Dugme Prikaži
+            button2.Click += button2_Click; // Dugme Izađi
+        }
+
+        // Pri otvaranju forme puni CheckedListBox
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            PuniCheckListBox();
+        }
+
+        private void PuniCheckListBox()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("PuniCheckListBox", Kon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    Kon.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        checkedListBox1.Items.Clear();
+                        while (reader.Read())
+                        {
+                            checkedListBox1.Items.Add(reader["Predmet"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška pri učitavanju predmeta: " + ex.Message);
+            }
+            finally
+            {
+                if (Kon.State == ConnectionState.Open)
+                    Kon.Close();
+            }
+        }
+
+        // Dugme Prikaži: puni DataGridView i Chart
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (checkedListBox1.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Izaberite bar jedan predmet!");
+                return;
+            }
+
+            if (checkedListBox1.CheckedItems.Count > 4) // Maks 4 predmeta
+            {
+                MessageBox.Show("Možete izabrati najviše 4 predmeta!");
+                return;
+            }
+
+            string predmet1 = checkedListBox1.CheckedItems.Count > 0 ? checkedListBox1.CheckedItems[0].ToString() : null;
+            string predmet2 = checkedListBox1.CheckedItems.Count > 1 ? checkedListBox1.CheckedItems[1].ToString() : null;
+            string predmet3 = checkedListBox1.CheckedItems.Count > 2 ? checkedListBox1.CheckedItems[2].ToString() : null;
+            string predmet4 = checkedListBox1.CheckedItems.Count > 3 ? checkedListBox1.CheckedItems[3].ToString() : null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("PuniGridChart", Kon))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Predmet1", (object)predmet1 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Predmet2", (object)predmet2 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Predmet3", (object)predmet3 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Predmet4", (object)predmet4 ?? DBNull.Value);
+
+                    Kon.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //  DataGridView
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        dataGridView1.DataSource = dt;
+                        dataGridView1.AutoResizeColumns();
+
+                        // Chart
+                        chart1.Series.Clear();
+                        chart1.ChartAreas.Clear();
+                        ChartArea area = new ChartArea();
+                        chart1.ChartAreas.Add(area);
+
+                        // Grid linije horizontalne
+                        area.AxisX.MajorGrid.LineColor = Color.LightGray;
+                        area.AxisY.MajorGrid.LineColor = Color.LightGray;
+                        area.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                        area.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+
+                        // Reset reader da ponovo čitamo iste podatke
+                        reader.Close();
+                        using (SqlCommand cmd2 = new SqlCommand("PuniGridChart", Kon))
+                        {
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@Predmet1", (object)predmet1 ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@Predmet2", (object)predmet2 ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@Predmet3", (object)predmet3 ?? DBNull.Value);
+                            cmd2.Parameters.AddWithValue("@Predmet4", (object)predmet4 ?? DBNull.Value);
+
+                            using (SqlDataReader chartReader = cmd2.ExecuteReader())
+                            {
+                                while (chartReader.Read())
+                                {
+                                    string naziv = chartReader["Predmet"].ToString();
+                                    Series s = new Series(naziv)
+                                    {
+                                        ChartType = SeriesChartType.Bar, 
+                                        IsValueShownAsLabel = true
+                                    };
+
+                                    s.Points.AddXY("2020", chartReader["2020"]);
+                                    s.Points.AddXY("2021", chartReader["2021"]);
+                                    s.Points.AddXY("2022", chartReader["2022"]);
+
+                                    chart1.Series.Add(s);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška: " + ex.Message);
+            }
+            finally
+            {
+                if (Kon.State == ConnectionState.Open)
+                    Kon.Close();
+            }
+        }
+
+       
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form1 f = new Form1();
+            f.Show();
+            this.Close();
+        }
+    }
+}
+

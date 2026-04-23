@@ -1,0 +1,94 @@
+USE [4EIT_A7_FakultetskaEvidencija]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[BrisiPredmet]
+    @PredmetID INT
+AS
+BEGIN
+    DELETE FROM Predmet
+    WHERE PredmetID = @PredmetID;
+END
+GO
+---------------------------------------
+
+USE [4EIT_A7_FakultetskaEvidencija]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniCheckListBox]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT RTRIM(Predmet) AS Predmet
+    FROM Predmet
+    ORDER BY Predmet;
+END
+GO
+-------------------------------------------
+USE [4EIT_A7_FakultetskaEvidencija]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniGrid]
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        [PredmetID],
+        [SifraPredmeta],
+        [Predmet],
+        [Semestar],
+        [Opis]
+    FROM [Predmet];
+END
+GO
+---------------------------------------------
+USE [4EIT_A7_FakultetskaEvidencija]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PuniGridChart]
+    @Predmet1 NVARCHAR(50),
+    @Predmet2 NVARCHAR(50),
+    @Predmet3 NVARCHAR(50),
+    @Predmet4 NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Predmet.Predmet,
+        SUM(CASE WHEN IzabreniPredmet.GodinaSlusanja = 2020 THEN 1 ELSE 0 END) AS [2020],
+        SUM(CASE WHEN IzabreniPredmet.GodinaSlusanja = 2021 THEN 1 ELSE 0 END) AS [2021],
+        SUM(CASE WHEN IzabreniPredmet.GodinaSlusanja = 2022 THEN 1 ELSE 0 END) AS [2022]
+    FROM IzabreniPredmet
+    INNER JOIN Predmet 
+        ON IzabreniPredmet.PredmetID = Predmet.PredmetID
+    WHERE Predmet.Predmet = @Predmet1
+       OR Predmet.Predmet = @Predmet2
+       OR Predmet.Predmet = @Predmet3
+       OR Predmet.Predmet = @Predmet4
+    GROUP BY Predmet.Predmet
+    ORDER BY Predmet.Predmet;
+END
+GO
+-----------------------------------------------------------------------------------------------
