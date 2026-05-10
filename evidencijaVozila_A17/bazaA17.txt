@@ -1,0 +1,133 @@
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[AzurirajPodatkeVozilo]    Script Date: 10-May-26 9:19:19 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[AzurirajPodatkeVozilo] @Registracija as nvarchar(50)
+                                      ,@GodinaProizvodnje as int
+                                      ,@Kilometraza as int 
+                                      ,@ModelNaziv as NVarChar(50)
+									  ,@BojaNaziv as NVarChar(50)
+									  ,@GorivoNaziv as NVarChar(50)
+									  ,@Cena as money
+									  ,@VoziloID as int
+AS
+UPDATE Vozilo
+SET Registracija = @Registracija
+   ,GodinaProizvodnje = @GodinaProizvodnje
+   ,PredjenoKM = @Kilometraza
+   ,ModelID = (SELECT ModelID FROM Model WHERE Naziv = @ModelNaziv)
+   ,BojaID = (SELECT BojaID FROM Boja WHERE Naziv = @BojaNaziv)
+   ,GorivoID = (SELECT GorivoID FROM Gorivo WHERE Naziv = @GorivoNaziv)
+   ,Cena = @Cena
+WHERE VoziloID = @VoziloID
+------------------------------------------------------------
+
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertNovoVozilo]    Script Date: 10-May-26 9:19:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertNovoVozilo] @Registracija as nvarchar(50)
+                                      ,@GodinaProizvodnje as int
+                                      ,@Kilometraza as int 
+                                      ,@ModelNaziv as NVarChar(50)
+									  ,@BojaNaziv as NVarChar(50)
+									  ,@GorivoNaziv as NVarChar(50)
+									  ,@Cena as money
+									  
+AS
+INSERT INTO Vozilo(Registracija
+                 , GodinaProizvodnje 
+				 , PredjenoKM
+				 , ModelID
+				 , BojaID
+				 , GorivoID
+				 , Cena)
+VALUES (@Registracija
+       ,@GodinaProizvodnje
+       ,@Kilometraza
+       ,(SELECT ModelID FROM Model WHERE Naziv = @ModelNaziv)
+       ,(SELECT BojaID FROM Boja WHERE Naziv = @BojaNaziv)
+       ,(SELECT GorivoID FROM Gorivo WHERE Naziv = @GorivoNaziv)
+       ,@Cena)
+------------------------------------------------------------
+
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboBoja]    Script Date: 10-May-26 9:20:02 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniComboBoja]
+AS
+SELECT Naziv As Naziv
+FROM [4EIT_A17_EvidencijaVozila].[dbo].[Boja]
+------------------------------------------------------------
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboGorivo]    Script Date: 10-May-26 9:20:19 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniComboGorivo]
+AS
+SELECT Naziv As Naziv
+FROM [4EIT_A17_EvidencijaVozila].[dbo].[Gorivo]
+------------------------------------------------------------
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboModel]    Script Date: 10-May-26 9:20:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Procedure [dbo].[PuniComboModel]
+AS
+SELECT Naziv AS Naziv FROM Model
+------------------------------------------------------------
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridChart]    Script Date: 10-May-26 9:20:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniGridChart] @Model AS NVarChar(50)
+AS
+SELECT GodinaProizvodnje
+      ,round(AVG(Cena),2) aS ProsCena
+  FROM Vozilo INNER JOIN Model ON Vozilo.ModelID = Model.ModelID
+  WHERE Model.Naziv = @Model
+  GROUP BY GodinaProizvodnje
+------------------------------------------------------------
+USE [4EIT_A17_EvidencijaVozila]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListBoxView]    Script Date: 10-May-26 9:20:59 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniListBoxView]
+AS
+SELECT VoziloID
+      ,Registracija
+	  ,GodinaProizvodnje
+	  ,PredjenoKM
+	  ,Vozilo.ModelID
+	  ,Vozilo.BojaID
+	  ,Vozilo.GorivoID
+	  ,Cena
+	  ,Model.Naziv as Model
+	  ,Boja.Naziv as Boja
+	  ,Gorivo.Naziv as Gorivo
+FROM Vozilo LEFT JOIN Model ON Vozilo.ModelID = Model.ModelID
+            LEFT JOIN Boja ON Vozilo.BojaID = Boja.BojaID
+			LEFT JOIN Gorivo ON Vozilo.GorivoID = Gorivo.GorivoID
+--------------------------------------------------------
