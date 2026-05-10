@@ -1,0 +1,63 @@
+USE [4EIT_A11_EvidencijaKnjiga]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertAutor]    Script Date: 26-Apr-26 9:03:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  ALTER PROCEDURE [dbo].[InsertAutor]  @ImeAutora AS NVarChar(50)
+									,@PrezimeAutora AS NVarChar(50)
+									,@DatumRodjena AS Date
+AS
+INSERT INTO Autor(Ime, Prezime, DatumRodjenja)
+VALUES (@ImeAutora
+	   ,@PrezimeAutora 
+	   ,@DatumRodjena)
+
+-----------------------------------------------------------------------------------------------------------
+USE [4EIT_A11_EvidencijaKnjiga]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniChart]    Script Date: 26-Apr-26 9:03:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniChart]  @Autor1 AS NVarChar(50), @Autor2 AS NVarChar(50), @Autor3 AS NVarChar(50)
+AS
+SELECT COUNT(Knjiga.KnjigaID) AS BrKnjiga
+       , Rtrim(Autor.Prezime) + ' ' + Rtrim(Autor.Ime) AS Autor
+FROM Knjiga INNER JOIN Autor_Izdanje ON Knjiga.KnjigaID = Autor_Izdanje.KnjigaID
+            INNER JOIN Autor ON Autor_Izdanje.AutorID = Autor.AutorID
+WHERE Rtrim(Autor.Prezime) + ' ' + Rtrim(Autor.Ime) = @Autor1 OR
+      Rtrim(Autor.Prezime) + ' ' + Rtrim(Autor.Ime) = @Autor2 OR
+      Rtrim(Autor.Prezime) + ' ' + Rtrim(Autor.Ime) = @Autor3
+GROUP BY Rtrim(Autor.Prezime),Rtrim(Autor.Ime)
+-------------------------------------------------------------------------------------------------------------
+USE [4EIT_A11_EvidencijaKnjiga]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniCheckListBox]    Script Date: 26-Apr-26 9:03:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniCheckListBox]
+AS
+SELECT Rtrim(Autor.Prezime) + ' ' + Rtrim(Autor.Ime) AS Autor
+FROM Autor
+ORDER BY Autor.Prezime, Autor.Ime
+--------------------------------------------------------------------------------------------------------------
+USE [4EIT_A11_EvidencijaKnjiga]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 26-Apr-26 9:04:14 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniListView]
+AS
+SELECT [AutorID]
+     ,Rtrim(Autor.Ime) AS Ime
+	 ,Rtrim(Autor.Prezime) AS PrezimeIme
+     ,FORMAT(DatumRodjenja, 'yyyy-MM-dd') AS DatumRodjenja 
+  FROM Autor
+----------------------------------------------------------------------------------------------------------------
