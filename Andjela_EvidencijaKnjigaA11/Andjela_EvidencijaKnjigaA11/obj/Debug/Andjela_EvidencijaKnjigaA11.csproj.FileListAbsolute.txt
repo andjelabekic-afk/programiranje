@@ -1,0 +1,12 @@
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\bin\Debug\Andjela_EvidencijaKnjigaA11.exe.config
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\bin\Debug\Andjela_EvidencijaKnjigaA11.exe
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\bin\Debug\Andjela_EvidencijaKnjigaA11.pdb
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.csproj.AssemblyReference.cache
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.Form1.resources
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.Form2.resources
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.Properties.Resources.resources
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.csproj.GenerateResource.cache
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.csproj.CoreCompileInputs.cache
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.exe
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.pdb
+C:\Users\skola\Desktop\ja\Andjela_EvidencijaKnjigaA11\Andjela_EvidencijaKnjigaA11\obj\Debug\Andjela_EvidencijaKnjigaA11.exe.config
