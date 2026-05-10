@@ -1,0 +1,327 @@
+forma 1
+
+toolStrip1 sa 2 buttons
+
+comboBox1
+1 button
+1 richTextBox
+1 listView (rucno polja)
+-------------------------------------------------------------
+
+forma 2
+
+1 comboBox,
+1 listview, 
+1 button
+------------------------------------------------------------
+forma 3
+ chart 1
+------------------------------------------------------------
+KOD
+
+form 1
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace Andjela_evidencijaZaposlenihA19
+{
+    public partial class Form1 : Form
+    {
+
+        SqlConnection Kon = new SqlConnection(@"Data Source=DESKTOP-2UBJC86\SQLEXPRESS;Initial Catalog=4EIT_A19_EvidencijaZaposlenih;Integrated Security=True");
+        SqlDataReader dr;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void PuniComboSektor()
+        {
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT Naziv FROM Sektor", Kon);
+            cmd.CommandType = CommandType.Text;
+
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "Naziv";
+
+            Kon.Close();
+        }
+
+        private void PuniPodatkeOSektoru()
+        {
+            if (Kon.State == ConnectionState.Closed)
+                Kon.Open();
+
+            SqlCommand cmd = new SqlCommand("PuniPodatkeOSektoru", Kon);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SektorNaziv", comboBox1.Text);
+
+            dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                richTextBox1.Text = comboBox1.Text + "\n" + dr[0].ToString();
+            }
+
+            Kon.Close();
+        }
+
+        private void PuniListView()
+        {
+            listView1.Items.Clear();
+
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand("PuniListView", Kon);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SektorNaziv", comboBox1.Text);
+
+            dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+
+                ListViewItem red = new ListViewItem(dr[0].ToString());
+
+                for (int i = 1; i < 5; i++)
+                    red.SubItems.Add(dr[i].ToString());
+
+                listView1.Items.Add(red);
+            }
+
+            Kon.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PuniPodatkeOSektoru();
+            PuniListView();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            f.ShowDialog();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            int sektorID = 0;
+            Kon.Open();
+            SqlCommand cmd = new SqlCommand("SELECT SektorID FROM Sektor WHERE Naziv=@Naziv", Kon);
+            cmd.Parameters.AddWithValue("@Naziv", comboBox1.Text);
+            sektorID = (int)cmd.ExecuteScalar();
+            Kon.Close();
+
+            Form2 f = new Form2(sektorID);
+            f.ShowDialog();
+
+            PuniListView(); 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            PuniComboSektor();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+------------------------------------------------------------
+Form 2
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace Andjela_evidencijaZaposlenihA19
+{
+    public partial class Form2 : Form
+    {
+        SqlConnection Kon = new SqlConnection(@"Data Source=DESKTOP-2UBJC86\SQLEXPRESS;Initial Catalog=4EIT_A19_EvidencijaZaposlenih;Integrated Security=True");
+        private int sektorID;
+
+        public Form2(int sektorID)
+        {
+            InitializeComponent();
+            this.sektorID = sektorID; 
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            PuniCombo();
+        }
+
+   
+        private void PuniCombo()
+        {
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "SELECT CAST(RadnikID AS nvarchar) + '-' + Ime + ' ' + Prezime AS Radnik " +
+                "FROM Radnik WHERE SektorID=@SektorID ORDER BY RadnikID", Kon);
+            cmd.Parameters.AddWithValue("@SektorID", sektorID);
+
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "Radnik";
+
+            Kon.Close();
+        }
+
+       
+        private void ZatvoriStarog(DateTime datum)
+        {
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE RukovodiSektorom SET DatumRazresenja=@DatumPostavljanja " +
+                "WHERE SektorID=@SektorID AND DatumRazresenja IS NULL", Kon);
+            cmd.Parameters.AddWithValue("@DatumPostavljanja", datum);
+            cmd.Parameters.AddWithValue("@SektorID", sektorID);
+
+            cmd.ExecuteNonQuery();
+            Kon.Close();
+        }
+
+       
+        private void NoviRukovodioc(DateTime datum)
+        {
+            string[] radnik = comboBox1.Text.Split('-');
+            int radnikID = int.Parse(radnik[0]);
+
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO RukovodiSektorom (SektorID, RadnikID, DatumPostavljanja) " +
+                "VALUES (@SektorID, @RadnikID, @DatumPostavljanja)", Kon);
+
+            cmd.Parameters.AddWithValue("@SektorID", sektorID);
+            cmd.Parameters.AddWithValue("@RadnikID", radnikID);
+            cmd.Parameters.AddWithValue("@DatumPostavljanja", datum);
+
+            cmd.ExecuteNonQuery();
+            Kon.Close();
+        }
+
+       
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            DateTime datum;
+            if (!DateTime.TryParse(textBox1.Text, out datum))
+            {
+                MessageBox.Show("Unesite validan datum (dd.mm.yyyy)!");
+                return;
+            }
+
+           
+            DateTime? aktuelniRazresenje = null;
+            Kon.Open();
+            SqlCommand cmd = new SqlCommand(
+                "SELECT DatumRazresenja FROM RukovodiSektorom WHERE SektorID=@SektorID AND DatumRazresenja IS NULL", Kon);
+            cmd.Parameters.AddWithValue("@SektorID", sektorID);
+            var result = cmd.ExecuteScalar();
+            if (result != DBNull.Value && result != null)
+                aktuelniRazresenje = (DateTime)result;
+            Kon.Close();
+
+            
+            if (aktuelniRazresenje.HasValue && datum <= aktuelniRazresenje.Value)
+            {
+                MessageBox.Show($"Datum imenovanja mora biti posle prethodnog datuma razrešenja: {aktuelniRazresenje.Value.ToShortDateString()}");
+                return;
+            }
+
+           g
+            ZatvoriStarog(datum);
+            NoviRukovodioc(datum);
+
+            MessageBox.Show("Uspešno dodat novi rukovodilac!");
+            this.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+    }
+}
+------------------------------------------------------------
+
+Form 3
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace Andjela_evidencijaZaposlenihA19
+{
+    public partial class Form3 : Form
+    {
+
+        SqlConnection Kon = new SqlConnection(@"Data Source=DESKTOP-2UBJC86\SQLEXPRESS;Initial Catalog=4EIT_A19_EvidencijaZaposlenih;Integrated Security=True");
+
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void PuniChart()
+        {
+            Kon.Open();
+
+            SqlCommand cmd = new SqlCommand("PuniChart", Kon);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+
+            chart1.DataSource = dt;
+
+            chart1.Series["Series1"].XValueMember = "Prezime";
+            chart1.Series["Series1"].YValueMembers = "Dana";
+
+            Kon.Close();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            PuniChart();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+-----------------------------------------------------------

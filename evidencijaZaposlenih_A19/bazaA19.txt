@@ -1,0 +1,112 @@
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[NoviRukovodioc]    Script Date: 10-May-26 9:39:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[NoviRukovodioc]
+ @RadnikID AS Int
+,@DatumPostavljanja AS Date
+AS 
+INSERT INTO RukovodiSektorom
+(
+SektorID
+,RadnikID
+,DatumPostavljanja
+
+)
+VALUES
+(
+ 2
+,@RadnikID
+,@DatumPostavljanja
+)
+------------------------------------------------------------
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniChart]    Script Date: 10-May-26 9:40:06 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniChart]
+AS
+SELECT [Ime]
+      ,[Prezime]
+	  ,DateDiff(DAY, RukovodiSektorom.DatumPostavljanja, IsNull(RukovodiSektorom.DatumRazresenja, GETDATE())) AS Dana
+FROM Radnik INNER JOIN Sektor ON Radnik.SektorID = Sektor.SektorID
+            INNER JOIN RukovodiSektorom ON Radnik.RadnikID = RukovodiSektorom.RadnikID 
+WHERE Sektor.Naziv = 'Finansijski sektor'
+ORDER BY Radnik.RadnikID
+------------------------------------------------------------
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboNoviRukovodioc]    Script Date: 10-May-26 9:40:22 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniComboNoviRukovodioc]
+AS
+SELECT CAST(RadnikID AS nvarchar) + '-' + Ime + ' ' + Prezime AS Radnik
+FROM Radnik
+WHERE SektorID = 2
+ORDER BY RadnikID
+------------------------------------------------------------
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 10-May-26 9:40:39 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniListView]
+@SektorNaziv AS NVarChar(50)
+AS
+SELECT Radnik.RadnikID
+      ,[Ime]
+      ,[Prezime]
+	  ,RukovodiSektorom.DatumPostavljanja
+	  ,IsNull(CAST(RukovodiSektorom.DatumRazresenja AS varchar) , 'Do danas') AS DatumRazresenja
+      ,Radnik.SektorID
+	  ,Sektor.Naziv
+  FROM Radnik INNER JOIN Sektor ON Radnik.SektorID = Sektor.SektorID
+              INNER JOIN RukovodiSektorom ON Radnik.RadnikID = RukovodiSektorom.RadnikID 
+  WHERE Sektor.Naziv = @SektorNaziv
+  ORDER BY RukovodiSektorom.DatumPostavljanja, RukovodiSektorom.DatumRazresenja
+------------------------------------------------------------
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniPodatkeOSektoru]    Script Date: 10-May-26 9:40:54 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniPodatkeOSektoru]
+@SektorNaziv AS NVarChar(50)
+AS
+SELECT [Opis]
+  FROM Sektor
+  WHERE Naziv = @SektorNaziv
+------------------------------------------------------------
+USE [4EIT_A19_EvidencijaZaposlenih]
+GO
+/****** Object:  StoredProcedure [dbo].[ZatvaraStariRukovodioc]    Script Date: 10-May-26 9:41:14 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[ZatvaraStariRukovodioc]
+@DatumPostavljanja AS Date
+AS 
+UPDATE RukovodiSektorom
+SET 
+DatumRazresenja = @DatumPostavljanja
+WHERE IsNull(CAST(RukovodiSektorom.DatumRazresenja AS varchar), 'Do danas') = 'Do danas' AND SektorID = 2
+
+------------------------------------------------------------
