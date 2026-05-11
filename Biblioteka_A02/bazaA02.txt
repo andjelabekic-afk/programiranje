@@ -1,0 +1,57 @@
+USE [EIT_А02_Biblioteka]
+GO
+/****** Object:  StoredProcedure [dbo].[BrisiAutor]    Script Date: 11-May-26 2:39:34 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[BrisiAutor] @AutorID As Int
+AS
+DELETE FROM Autor 
+WHERE AutorID = @AutorID
+--------------------------------------------------------------
+USE [EIT_А02_Biblioteka]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniComboAutor]    Script Date: 11-May-26 2:40:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniComboAutor]
+AS
+SELECT CAST(AutorID AS NVarChar) +' - '+ Rtrim(Ime) + ' '+ RTrim(Prezime) AS Autor
+  FROM Autor
+------------------------------------------------------------
+
+USE [EIT_А02_Biblioteka]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridChart]    Script Date: 11-May-26 2:40:50 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniGridChart] @SifraAutora as Int , @Period As Int
+AS
+SELECT  Year(DatumUzimanja) as GodUzimanja
+	  , COUNT(*) AS BrIznajmljivanja
+FROM NaCitanju INNER JOIN Napisali ON NaCitanju.KnjigaID = Napisali.KnjigaID
+               INNER JOIN Autor ON Napisali.AutorID = Autor.AutorID 
+WHERE Autor.AutorID = @SifraAutora AND Year(DatumUzimanja) >= (YEAR(Getdate()) - @Period)
+GROUP BY Year(DatumUzimanja)
+------------------------------------------------------------
+USE [EIT_А02_Biblioteka]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 11-May-26 2:41:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  ALTER PROCEDURE [dbo].[PuniListView]
+AS
+SELECT TOP (1000) [AutorID]
+      ,[Ime]
+      ,[Prezime]
+      ,Format([DatumRodjenja], 'dd/MM/yyyy') AS DatumRodjenja
+  FROM Autor
+------------------------------------------------------------

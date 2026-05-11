@@ -1,0 +1,15 @@
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\bin\Debug\Andjela_BibliotekaA2.exe.config
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\bin\Debug\Andjela_BibliotekaA2.exe
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\bin\Debug\Andjela_BibliotekaA2.pdb
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.csproj.AssemblyReference.cache
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.Form1.resources
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.Properties.Resources.resources
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.csproj.GenerateResource.cache
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.csproj.CoreCompileInputs.cache
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.exe
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.pdb
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.exe.config
+C:\Users\skola\Desktop\ja\Andjela_BibliotekaA2\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.Form2.resources
+C:\Users\Anđela\Downloads\Andjela_BibliotekaA2_FIXED\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.csproj.AssemblyReference.cache
+C:\Users\Anđela\Downloads\Andjela_BibliotekaA2_FIXED\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.exe
+C:\Users\Anđela\Downloads\Andjela_BibliotekaA2_FIXED\Andjela_BibliotekaA2\obj\Debug\Andjela_BibliotekaA2.pdb
