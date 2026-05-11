@@ -1,0 +1,53 @@
+USE [EIT_A03_EvidencijaRadnika]
+GO
+/****** Object:  StoredProcedure [dbo].[BrisiProjekat]    Script Date: 11-May-26 2:50:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[BrisiProjekat] @SifraProjekta AS Int
+AS
+DELETE FROM Projekat WHERE ProjekatID = @SifraProjekta
+-------------------------------------------------------------
+USE [EIT_A03_EvidencijaRadnika]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridChart]    Script Date: 11-May-26 2:50:46 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[PuniGridChart] @Period AS Int
+AS
+SELECT YEAR(DatumPocetka) AS Godina
+     , (Projekat.ProjekatID) AS BrojProjekata
+	 , COUNT(Angazman.RadnikID) AS BrRadnika
+INTO #TEMP
+FROM Projekat INNER JOIN Angazman ON Projekat.ProjekatID = Angazman.ProjekatID
+WHERE Year(DatumPocetka) > (YEAR(Getdate()) - @Period)
+GROUP BY YEAR(DatumPocetka), Projekat.ProjekatID
+ORDER BY YEAR(DatumPocetka)
+
+SELECT Godina
+     , COUNT(BrojProjekata) AS BrojProjekata 
+	 , SUM(BrRadnika) AS BrRadnika
+FROM #TEMP
+GROUP BY Godina
+DROP TABLE #TEMP
+------------------------------------------------------------
+USE [EIT_A03_EvidencijaRadnika]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 11-May-26 2:51:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Procedure [dbo].[PuniListView]
+AS
+SELECT TOP (1000) [ProjekatID]
+      ,[Naziv]
+      ,[DatumPocetka]
+      ,[Budzet]
+      ,[ProjekatZavrsen]
+      ,[Opis]
+  FROM [EIT_A03_EvidencijaRadnika].[dbo].[Projekat]
+------------------------------------------------------------
