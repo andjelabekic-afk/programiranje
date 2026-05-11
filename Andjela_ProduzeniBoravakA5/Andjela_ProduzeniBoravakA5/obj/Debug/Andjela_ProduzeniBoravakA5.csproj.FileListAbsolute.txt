@@ -1,0 +1,12 @@
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\bin\Debug\Andjela_ProduzeniBoravakA5.exe.config
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\bin\Debug\Andjela_ProduzeniBoravakA5.exe
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\bin\Debug\Andjela_ProduzeniBoravakA5.pdb
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.csproj.AssemblyReference.cache
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.Form1.resources
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.Properties.Resources.resources
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.csproj.GenerateResource.cache
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.csproj.CoreCompileInputs.cache
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.exe
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.pdb
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.exe.config
+C:\Users\skola\Desktop\ja\Andjela_ProduzeniBoravakA5\Andjela_ProduzeniBoravakA5\obj\Debug\Andjela_ProduzeniBoravakA5.Form2.resources
