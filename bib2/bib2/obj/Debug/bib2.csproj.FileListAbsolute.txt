@@ -1,0 +1,11 @@
+C:\Users\Anđela\source\repos\bib2\bib2\bin\Debug\bib2.exe.config
+C:\Users\Anđela\source\repos\bib2\bib2\bin\Debug\bib2.exe
+C:\Users\Anđela\source\repos\bib2\bib2\bin\Debug\bib2.pdb
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.csproj.AssemblyReference.cache
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.Form1.resources
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.Form2.resources
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.Properties.Resources.resources
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.csproj.GenerateResource.cache
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.csproj.CoreCompileInputs.cache
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.exe
+C:\Users\Anđela\source\repos\bib2\bib2\obj\Debug\bib2.pdb
