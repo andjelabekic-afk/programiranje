@@ -1,0 +1,73 @@
+USE [4EIT_A5_ProduzeniBoravak]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniGridChart]    Script Date: 11-May-26 3:00:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ ALTER PROCEDURE [dbo].[PuniGridChart]
+  AS
+  SELECT CASE Aktivnosti.Dan
+			WHEN 'Ponedeljak' THEN '1' + '-' + Aktivnosti.Dan
+			WHEN 'Utorak' THEN '2' + '-' + Aktivnosti.Dan
+			WHEN 'Sreda' THEN '3' + '-' + Aktivnosti.Dan
+			WHEN 'Cetvrtak' THEN '4' + '-' + Aktivnosti.Dan
+			WHEN 'Petak' THEN '5' + '-' + Aktivnosti.Dan
+			WHEN 'Subota' THEN '6' + '-' + Aktivnosti.Dan
+			WHEN 'Nedelja' THEN '7' + '-' + Aktivnosti.Dan
+		END AS Dan1
+        ,COUNT(DeteID) AS BrDece
+  INTO TEMP#
+  FROM Registar_Aktivnosti INNER JOIN Aktivnosti ON Registar_Aktivnosti.AktivnostID = Aktivnosti.AktivnostID 
+  GROUP BY Aktivnosti.Dan
+  SELECT SUBSTRING(Dan1, 3, 10) AS Dan 
+       , BrDece
+  FROM TEMP#
+  ORDER BY Dan1
+  DROP TABLE TEMP#
+------------------------------------------------------------
+USE [4EIT_A5_ProduzeniBoravak]
+GO
+/****** Object:  StoredProcedure [dbo].[PuniListView]    Script Date: 11-May-26 3:00:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/****** Script for SelectTopNRows command from SSMS  ******/
+ALTER PROCEDURE [dbo].[PuniListView]
+AS
+SELECT AktivnostID
+      ,NazivAktivnosti
+      ,Dan
+      ,Pocetak
+      ,Zavrsetak
+  FROM Aktivnosti
+------------------------------------------------------------
+USE [4EIT_A5_ProduzeniBoravak]
+GO
+/****** Object:  StoredProcedure [dbo].[UnesiAktivnost]    Script Date: 11-May-26 3:00:39 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  ALTER  PROCEDURE [dbo].[UnesiAktivnost]
+  @NazivAktivnosti AS NvarChar(50)
+ ,@Dan AS NvarChar(50)
+ ,@Pocetak As Time
+ ,@Zavrsetak As Time
+ AS
+ INSERT INTO Aktivnosti
+ (
+ [NazivAktivnosti]
+,[Dan]
+,[Pocetak]
+,[Zavrsetak]
+)
+ Values
+(
+  @NazivAktivnosti
+ ,@Dan
+ ,@Pocetak
+ ,@Zavrsetak
+)
+------------------------------------------------------------
