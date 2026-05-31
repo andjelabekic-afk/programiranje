@@ -1,6 +1,6 @@
 Form 1
 
-toolStrip1 sa 1 button,
+toolStrip1 sa 1 button, proveri events
 
 3 textbox,
 1 maskedTextBox 00.00.0000,
@@ -12,7 +12,7 @@ toolStrip1 sa 1 button,
 
 Form 2
 
-1 numericUpDown,
+1 numericUpDown, proveri events i za ovo
 1 dataGridView,
 1 chart pie
 -------------------------------------------------------------
