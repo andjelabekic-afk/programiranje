@@ -4,6 +4,8 @@ tab1 :
 3 tab control
 2 buttons
 picture box
+3 combobox
+3 labela
 
 tab2:
 combobox
@@ -275,3 +277,21 @@ namespace Andjela_IzlozbaPasaA16
         }
     }
 }
+-------------------------------------------------------------------------------------
+ovo dole moze i ovako 
+
+ private void tabControl1_SelectedIndexChanged_1(object sender, EventArgs e)
+ {
+     if (tabControl1.SelectedTab == tabPage4)
+     {
+         Application.Exit();
+     }
+ }
+
+ako se duplira kod prijave samo izbaciti 
+            this.Load += Form1_Load;
+
+            button1.Click += button1_Click;
+            button2.Click += button2_Click;
+            button3.Click += button3_Click;
+            button4.Click += button4_Click;
