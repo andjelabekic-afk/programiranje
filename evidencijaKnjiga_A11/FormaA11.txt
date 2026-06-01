@@ -1,7 +1,7 @@
 forma 1:
 toolStrip1 sa 3 buttons,
 3 text box,
-dateTimePicker,
+dateTimePicker,  Format = Custom    CustomFormat = dd.MM.yyyy
 listView1
 3 button, 
 pictureBox
@@ -12,16 +12,29 @@ Forma 2:
 checkedListBox
 Chart1
 -----------------------------
+forma 3
+
+label
+richtextbox
+button
+-----------------------------
+
 KOD
 
 Forma 1
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Andjela_EvidencijaKnjigaA11
+namespace A11EvKNji
 {
     public partial class Form1 : Form
     {
@@ -81,7 +94,7 @@ namespace Andjela_EvidencijaKnjigaA11
             }
         }
 
-        private void listView1_Click(object sender, EventArgs e)
+        private void listView1_Click_1(object sender, EventArgs e)
         {
             SaListViewNaKontrole();
         }
@@ -98,7 +111,7 @@ namespace Andjela_EvidencijaKnjigaA11
         }
 
         // RESET
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             textBox1.Clear();
             textBox2.Clear();
@@ -110,7 +123,7 @@ namespace Andjela_EvidencijaKnjigaA11
         }
 
         // UPIŠI
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
             if (textBox2.Text == "" || textBox3.Text == "")
             {
@@ -139,7 +152,7 @@ namespace Andjela_EvidencijaKnjigaA11
         }
 
         // ODUSTANI
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
             textBox1.Enabled = true;
             textBox1.Clear();
@@ -150,25 +163,24 @@ namespace Andjela_EvidencijaKnjigaA11
             button3.Enabled = false;
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+    
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            f.ShowDialog();
+        }
+
+        private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
             Form2 f = new Form2();
             f.ShowDialog();
         }
-
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-               "Aplikacija služi za evidenciju autora i analizu broja knjiga po autorima.",
-               "O aplikaciji");
-        }
-
-    
     }
 }
 ------------------------------------------------------------
@@ -303,3 +315,90 @@ namespace Andjela_EvidencijaKnjigaA11
         
     }
 }
+--------------------------------------------------------------------------------------
+form 3
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace A11EvKNji
+{
+    public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            label1.Text = "O aplikaciji";
+
+            richTextBox1.ReadOnly = true;
+
+            richTextBox1.Text =
+                "UPUTSTVO ZA KORIŠĆENJE APLIKACIJE" + Environment.NewLine +
+                Environment.NewLine +
+
+                "Aplikacija „Evidencija knjiga“ namenjena je za pregled i unos autora, kao i za grafički prikaz broja knjiga po autoru." + Environment.NewLine +
+                Environment.NewLine +
+
+                "1. Početna forma" + Environment.NewLine +
+                "Na početnoj formi prikazani su podaci o svim autorima u listBox kontroli. Prikazuju se šifra, ime, prezime i datum rođenja autora." + Environment.NewLine +
+                "Pored liste nalaze se polja za pojedinačni prikaz izabranog autora." + Environment.NewLine +
+                Environment.NewLine +
+
+                "2. Prikaz podataka o autoru" + Environment.NewLine +
+                "Klikom na autora u listBox kontroli, njegovi podaci se prikazuju u odgovarajućim poljima forme." + Environment.NewLine +
+                "Podaci o autoru mogu se prikazati i unosom šifre autora u polje za šifru." + Environment.NewLine +
+                "Ako autor sa unetom šifrom ne postoji, prikazuje se odgovarajuća poruka." + Environment.NewLine +
+                Environment.NewLine +
+
+                "3. Priprema za unos novog autora" + Environment.NewLine +
+                "Klikom na dugme „RESET“ brišu se sva polja i forma se priprema za unos novog autora." + Environment.NewLine +
+                "Polje za šifru se tada ne popunjava, jer se šifra automatski generiše prilikom upisa u bazu." + Environment.NewLine +
+                "Nakon klika na „RESET“, aktiviraju se dugmad „UPIŠI“ i „ODUSTANI“." + Environment.NewLine +
+                Environment.NewLine +
+
+                "4. Unos novog autora" + Environment.NewLine +
+                "Nakon unosa podataka o autoru, klikom na dugme „UPIŠI“ novi autor se upisuje u bazu podataka." + Environment.NewLine +
+                "Posle uspešnog upisa prikazuje se poruka, osvežava se listBox kontrola, a dugmad „UPIŠI“ i „ODUSTANI“ ponovo postaju neaktivna." + Environment.NewLine +
+                Environment.NewLine +
+
+                "5. Odustajanje od unosa" + Environment.NewLine +
+                "Klikom na dugme „ODUSTANI“ prekida se unos novog autora i forma se vraća u početno stanje." + Environment.NewLine +
+                Environment.NewLine +
+
+                "6. Analiza" + Environment.NewLine +
+                "Klikom na stavku menija „Analiza“ otvara se forma za grafički prikaz ukupnog broja knjiga po autoru." + Environment.NewLine +
+                "Autori se biraju u checkedListBox kontroli. Potrebno je izabrati najmanje dva autora." + Environment.NewLine +
+                "Podaci se prikazuju na grafikonu." + Environment.NewLine +
+                Environment.NewLine +
+
+                "7. O aplikaciji" + Environment.NewLine +
+                "Klikom na stavku menija „O aplikaciji“ otvara se ovo kratko korisničko uputstvo." + Environment.NewLine +
+                Environment.NewLine +
+
+                "8. Izlaz" + Environment.NewLine +
+                "Klikom na stavku menija „Izlaz“ zatvara se cela aplikacija." + Environment.NewLine +
+                Environment.NewLine +
+
+                "Radni zadatak: 4EIT-A11 - Evidencija knjiga.";
+        }
+
+    
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------
