@@ -1,6 +1,6 @@
 forma 1
 
-toolStrip1 sa 2 buttons
+toolStrip1 sa 3 buttons
 
 comboBox1
 1 button
@@ -11,11 +11,17 @@ comboBox1
 forma 2
 
 1 comboBox,
-1 listview, 
+1 textbox, 
 1 button
 ------------------------------------------------------------
 forma 3
  chart 1
+------------------------------------------------------------
+forma 4
+
+label
+richtextbox
+button
 ------------------------------------------------------------
 KOD
 
@@ -149,6 +155,13 @@ namespace Andjela_evidencijaZaposlenihA19
         {
 
         }
+
+rivate void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            Form4 f = new Form4();
+            f.ShowDialog();
+
+        }
     }
 }
 ------------------------------------------------------------
@@ -260,7 +273,7 @@ namespace Andjela_evidencijaZaposlenihA19
                 return;
             }
 
-           g
+           
             ZatvoriStarog(datum);
             NoviRukovodioc(datum);
 
@@ -325,3 +338,74 @@ namespace Andjela_evidencijaZaposlenihA19
     }
 }
 -----------------------------------------------------------
+forma 4
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace A19EvRad
+{
+    public partial class Form4 : Form
+    {
+        public Form4()
+        {
+            InitializeComponent();
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+            label1.Text = "O aplikaciji";
+
+            richTextBox1.ReadOnly = true;
+
+            richTextBox1.Text =
+                "UPUTSTVO ZA KORIŠĆENJE APLIKACIJE" + Environment.NewLine +
+                Environment.NewLine +
+
+                "Aplikacija „Evidencija zaposlenih“ namenjena je za pregled sektora, prikaz rukovodilaca sektora i vođenje evidencije o istoriji upravljanja sektorima." + Environment.NewLine +
+                Environment.NewLine +
+
+                "1. Izbor sektora" + Environment.NewLine +
+                "Na početnoj formi korisnik bira sektor iz comboBox kontrole. Nakon izbora sektora prikazuju se podaci o izabranom sektoru i trenutnom rukovodiocu." + Environment.NewLine +
+                Environment.NewLine +
+
+                "2. Pregled rukovodilaca" + Environment.NewLine +
+                "Podaci o svim rukovodiocima izabranog sektora prikazuju se u listView kontroli. Za svakog rukovodioca prikazuje se ime i prezime, datum početka mandata i datum završetka mandata." + Environment.NewLine +
+                Environment.NewLine +
+
+                "3. Promena rukovodioca" + Environment.NewLine +
+                "Kada je izabran sektor, omogućava se dugme za promenu rukovodioca. Klikom na dugme otvara se forma na kojoj se bira novi rukovodilac i unosi datum njegovog imenovanja." + Environment.NewLine +
+                "Kao novi rukovodilac može biti izabran samo zaposleni koji radi u tom sektoru." + Environment.NewLine +
+                "Imenovanjem novog rukovodioca automatski se završava mandat prethodnog rukovodioca istim datumom." + Environment.NewLine +
+                Environment.NewLine +
+
+                "4. Statistika rukovođenja" + Environment.NewLine +
+                "Klikom na dugme sa slikom grafikona otvara se forma za prikaz statistike rukovođenja izabranog sektora." + Environment.NewLine +
+                "Na grafikonu se prikazuju svi rukovodioci i dužina njihovog angažovanja na toj poziciji, izražena u danima." + Environment.NewLine +
+                Environment.NewLine +
+
+                "5. O aplikaciji" + Environment.NewLine +
+                "Klikom na dugme „O aplikaciji“ otvara se ovo kratko korisničko uputstvo." + Environment.NewLine +
+                Environment.NewLine +
+
+                "6. Izlaz" + Environment.NewLine +
+                "Klikom na dugme „Izlaz“ zatvara se aplikacija." + Environment.NewLine +
+                Environment.NewLine +
+
+                "Radni zadatak: 4EIT-A19 - Evidencija zaposlenih.";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
