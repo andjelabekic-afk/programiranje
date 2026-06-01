@@ -1,7 +1,7 @@
 Form 1
-toolstrip1
+toolstrip1 ( dock left)
 3 textbox
-listview
+listview ( rucno imena kolona)
 -------------------
 form 2
 datagridview1
@@ -9,6 +9,8 @@ chart1
 2 buttons
 ---------------------
 Form 3
+label
+button
 richtextbox
 ---------------------
 KOD
@@ -235,6 +237,11 @@ namespace Andjela_DVDKolekcijaA13
             "Opcija Analiza prikazuje tabelu i grafikon broja filmova po producentu. Opcija Izlaz zatvara aplikaciju.";
 
         }
+
+   private void button1_Click(object sender, EventArgs e)
+   {
+       this.Close();
+   }
     }
 }
 ----------------------------------------------------------------------------------------------------------------------------------------
