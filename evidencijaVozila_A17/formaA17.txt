@@ -18,7 +18,16 @@ Forma 2
 comboBox1,
 2 buttona,
 chart 1 pie
+datagrid view
 ------------------------------------------------------------
+
+forma 3
+
+label
+richtextbox
+button
+------------------------------------------------------------
+
 KOD
 
 Forma 1
@@ -196,7 +205,8 @@ namespace Andjela_EvidencijaVozilaA17
 
         private void toolStripLabel3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Evidencija vozila\nAuto plac PREVOZ\nAutor: Andjela Bekić");
+            Form3 f = new Form3();
+            f.ShowDialog();
         }
 
         private void toolStripLabel4_Click(object sender, EventArgs e)
@@ -301,3 +311,81 @@ namespace Andjela_EvidencijaVozilaA17
 }
 
 ------------------------------------------------------------
+forma 3
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace A17EvVoz
+{
+    public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            label1.Text = "O aplikaciji";
+
+            richTextBox1.ReadOnly = true;
+
+            richTextBox1.Text =
+                "UPUTSTVO ZA KORIŠĆENJE APLIKACIJE" + Environment.NewLine +
+                Environment.NewLine +
+
+                "Aplikacija „Evidencija vozila“ namenjena je za pregled i izmenu podataka o automobilima, kao i za prikaz prosečne cene automobila po godini proizvodnje za izabrani model." + Environment.NewLine +
+                Environment.NewLine +
+
+                "1. Početna forma" + Environment.NewLine +
+                "Na početnoj formi prikazani su podaci o svim automobilima u listBox kontroli. Podaci su sortirani po šifri automobila." + Environment.NewLine +
+                "Klikom na automobil u listBox kontroli, njegovi podaci se prikazuju u odgovarajućim poljima forme." + Environment.NewLine +
+                "Podaci o automobilu mogu se prikazati i promenom šifre u polju za šifru." + Environment.NewLine +
+                Environment.NewLine +
+
+                "2. Priprema za izmenu" + Environment.NewLine +
+                "Klikom na dugme „Priprema za izmenu“ forma se priprema za izmenu podataka o izabranom automobilu." + Environment.NewLine +
+                "Polje za šifru tada postaje samo za čitanje, a pojavljuje se dugme „Odustani“." + Environment.NewLine +
+                Environment.NewLine +
+
+                "3. Izmena podataka" + Environment.NewLine +
+                "Nakon izmene podataka u poljima forme, klikom na stavku menija „Izmeni“ promene se upisuju u bazu podataka." + Environment.NewLine +
+                "Posle uspešne izmene prikazuje se poruka u MessageBox-u i osvežava se sadržaj listBox kontrole." + Environment.NewLine +
+                Environment.NewLine +
+
+                "4. Odustajanje od izmene" + Environment.NewLine +
+                "Klikom na dugme „Odustani“ prekida se izmena i forma se vraća u početno stanje." + Environment.NewLine +
+                Environment.NewLine +
+
+                "5. Analiza" + Environment.NewLine +
+                "Klikom na stavku menija „Analiza“ otvara se forma za tabelarni i grafički prikaz prosečne cene automobila po godini proizvodnje za zadati model." + Environment.NewLine +
+                "Na formi za analizu bira se model automobila, a klikom na dugme „PRIKAŽI“ prikazuju se tabela i grafikon." + Environment.NewLine +
+                "Dugme „IZAĐI“ zatvara formu za analizu i vraća korisnika na početnu formu." + Environment.NewLine +
+                Environment.NewLine +
+
+                "6. O aplikaciji" + Environment.NewLine +
+                "Klikom na stavku menija „O aplikaciji“ otvara se ovo kratko korisničko uputstvo." + Environment.NewLine +
+                Environment.NewLine +
+
+                "7. Izlaz" + Environment.NewLine +
+                "Klikom na stavku menija „Izlaz“ zatvara se cela aplikacija." + Environment.NewLine +
+                Environment.NewLine +
+
+                "Radni zadatak: 4EIT-A17 - Evidencija vozila.";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
