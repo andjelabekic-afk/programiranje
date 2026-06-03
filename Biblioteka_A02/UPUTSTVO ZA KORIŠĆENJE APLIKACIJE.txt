@@ -13,3 +13,45 @@ Klikom na dugme „O aplikaciji“ otvara se kratko korisničko uputstvo za rad 
 Klikom na dugme „Izlaz“ zatvara se aplikacija.
 
 Radni zadatak: 4EIT-A2 — Biblioteka.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ako bude trebalo za kod 
+
+public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            label1.Text = "UPUTSTVO ZA KORIŠĆENJE APLIKACIJE";
+
+            button1.Text = "Izlaz";
+
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Text =
+@"Aplikacija „Biblioteka“ namenjena je za pregled, analizu i brisanje podataka o autorima iz baze podataka biblioteke.
+
+Na početnoj formi prikazani su svi autori u tabelarnom prikazu pomoću listView kontrole. Klikom na određenog autora iz liste, njegovi podaci se prikazuju u odgovarajućim poljima forme.
+
+Za brisanje autora potrebno je prvo izabrati autora iz liste, a zatim kliknuti na dugme „Brisanje“ u liniji sa alatima. Nakon potvrde brisanja, autor se briše iz baze, a prikaz u listView kontroli se automatski osvežava. Autor može biti obrisan samo ako biblioteka ne poseduje nijedan naslov tog autora.
+
+Klikom na dugme „Analiza“ otvara se druga forma na kojoj se prikazuje koliko su puta dela izabranog autora bila iznajmljena tokom zadatog vremenskog perioda. Period se određuje izborom broja godina unazad u odnosu na tekući datum. Klikom na dugme „Prikaži“ prikazuju se tabela i grafikon.
+
+Klikom na dugme „O aplikaciji“ otvara se kratko korisničko uputstvo za rad sa aplikacijom.
+
+Klikom na dugme „Izlaz“ zatvara se aplikacija.
+
+Radni zadatak: 4EIT-A2 — Biblioteka.";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
