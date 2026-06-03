@@ -13,3 +13,46 @@ Klikom na dugme „Pregled projekata“ otvara se druga forma. Na toj formi prik
 Klikom na dugme „Izlaz“ zatvara se aplikacija.
 
 Radni zadatak: 4EIT-A3 — Evidencija radnika.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ako treba u kodu 
+
+
+ public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            label1.Text = "UPUTSTVO ZA KORIŠĆENJE APLIKACIJE";
+
+            button1.Text = "Izlaz";
+
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Text =
+@"Aplikacija „Evidencija radnika“ namenjena je za pregled, brisanje i analizu podataka o projektima i radnicima angažovanim na projektima.
+
+Na početnoj formi prikazani su svi projekti u listView kontroli. Klikom na određeni projekat iz liste, njegovi podaci se prikazuju u odgovarajućim poljima forme.
+
+Za brisanje projekta potrebno je prvo izabrati projekat iz liste, a zatim kliknuti na dugme „Obriši“. Projekat se može obrisati samo ako je započet pre više od 5 godina i ako je u međuvremenu završen. Ako projekat ne ispunjava uslov za brisanje, prikazuje se odgovarajuća poruka.
+
+Nakon uspešnog brisanja, lista projekata se osvežava, a polja na formi se vraćaju na podrazumevane vrednosti. Podaci o obrisanom projektu upisuju se u log fajl koji sadrži šifru i naziv obrisanog projekta.
+
+Klikom na dugme „Pregled projekata“ otvara se druga forma. Na toj formi prikazuje se statistika projekata po godinama, odnosno broj projekata započetih u određenoj godini i ukupan broj radnika angažovanih na tim projektima. Podaci se prikazuju tabelarno i grafički.
+
+Klikom na dugme „Izlaz“ zatvara se aplikacija.
+
+Radni zadatak: 4EIT-A3 — Evidencija radnika.";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
