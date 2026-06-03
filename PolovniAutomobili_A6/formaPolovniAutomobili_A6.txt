@@ -209,12 +209,14 @@ namespace PolovniAutomobili
             }
 
          
+           
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
                 string s = listBox1.GetItemText(listBox1.Items[i]).TrimStart();
                 if (s.StartsWith(sifraTxt))
                 {
                     listBox1.SelectedIndex = i;
+                    listBox1_Click(listBox1, EventArgs.Empty);
                     return;
                 }
             }
