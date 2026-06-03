@@ -25,7 +25,7 @@ label
 -----------------------------------------------
 
 KOD
-FORM !
+FORM 1
 
 using System;
 using System.Collections.Generic;
@@ -84,6 +84,10 @@ f.ShowDialog();
 
 -------------------------------------------------------------------
 FORM 2
+
+ako posle brisanja izbracije da brisanje nije uspesno  onda samo iz koda treba obrisati:
+ button1.Click += button1_Click; 
+            button2.Click += button2_Click; 
 
 
 using System;
